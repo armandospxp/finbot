@@ -1,0 +1,13 @@
+# Dependencias principales
+fastapi==0.104.1
+uvicorn==0.24.0
+pydantic==2.4.2
+python-dotenv==1.0.0
+
+# Dependencias para el modelo
+torch>=2.0.0
+transformers>=4.34.0
+accelerator>=0.23.0
+bitsandbytes>=0.41.0
+sentencepiece>=0.1.99
+protobuf>=4.24.4

@@ -1,0 +1,106 @@
+version: '3.8'
+
+services:
+  # Servicio de base de datos PostgreSQL
+  postgres:
+    image: postgres:15-alpine
+    container_name: credit_app_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-credit_app}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - credit_app_network
+
+  # Servicio de backend FastAPI
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: credit_app_backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      gpt-oss-20b:
+        condition: service_started
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-credit_app}
+      - ADMIN_EMAIL=${ADMIN_EMAIL:-admin@example.com}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin123}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - GPT_OSS_MODEL_URL=http://gpt-oss-20b:8080
+      - USE_OPENAI_FALLBACK=${USE_OPENAI_FALLBACK:-true}
+      - DEFAULT_LLM_MODEL=${DEFAULT_LLM_MODEL:-gpt-oss-20b}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    networks:
+      - credit_app_network
+
+  # Servicio de frontend React
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: credit_app_frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000
+    networks:
+      - credit_app_network
+
+  # Servicio de modelo GPT-OSS-20B
+  gpt-oss-20b:
+    build:
+      context: ./gpt-oss-20b
+      dockerfile: Dockerfile
+    container_name: credit_app_gpt_oss_20b
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - gpt_oss_models:/app/models
+    environment:
+      - MODEL_PATH=/app/models/gpt-oss-20b
+      - MAX_INPUT_TOKENS=4096
+      - MAX_OUTPUT_TOKENS=1024
+      - DEFAULT_TEMPERATURE=0.7
+      - DEFAULT_TOP_P=0.9
+      - DEFAULT_TOP_K=50
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    networks:
+      - credit_app_network
+
+networks:
+  credit_app_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  gpt_oss_models:

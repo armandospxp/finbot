@@ -1,0 +1,32 @@
+# Dependencias principales
+fastapi==0.104.1
+uvicorn==0.24.0
+pydantic==2.4.2
+sqlalchemy==2.0.23
+alembic==1.12.1
+python-dotenv==1.0.0
+psycopg2-binary==2.9.9
+
+# Autenticación y seguridad
+python-jose==3.3.0
+passlib==1.7.4
+python-multipart==0.0.6
+
+# Integración con servicios externos
+requests==2.31.0
+aiohttp==3.8.6
+
+# Procesamiento de datos
+pandas==2.1.1
+numpy==1.26.1
+
+# Agentes IA
+langchain==0.0.335
+openai==1.2.4
+chroma-db==0.4.18
+python-dotenv==1.0.0
+pypdf2==3.0.1
+
+# Comunicación
+twilio==8.9.1  # Para WhatsApp y SMS
+sendgrid==6.10.0  # Para Email
