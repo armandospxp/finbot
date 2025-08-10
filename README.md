@@ -10,6 +10,7 @@ Este proyecto implementa un sistema de agentes virtuales para la venta de crédi
 - **Procesamiento de Políticas**: Extracción de conocimiento desde documentos PDF
 - **Panel de Administración**: Dashboard para monitoreo y control de agentes
 - **Base de Datos Vectorial**: Almacenamiento eficiente de conocimiento con ChromaDB
+- **Interfaz de Prueba de Modelo**: Herramienta para probar respuestas del modelo sin usar Twilio
 - **Pruebas Automatizadas**: Cobertura completa de pruebas para todos los componentes
 
 ## Estructura del Proyecto

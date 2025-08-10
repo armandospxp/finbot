@@ -240,6 +240,32 @@ open gpt-oss-20b/htmlcov/index.html
 open frontend/coverage/lcov-report/index.html
 ```
 
+## Uso de la Interfaz de Prueba del Modelo
+
+El sistema incluye una interfaz de prueba para evaluar las respuestas del modelo sin necesidad de utilizar la API de Twilio. Esta herramienta es útil durante el desarrollo y pruebas para verificar la calidad de las respuestas generadas por los agentes virtuales.
+
+### Acceso a la Interfaz de Prueba
+
+1. Inicia sesión en el sistema con tus credenciales
+2. En el menú lateral, haz clic en "Probador de Modelo"
+3. Selecciona un agente activo de la lista desplegable
+4. Escribe un mensaje como si fueras un cliente
+5. Recibe y evalúa la respuesta generada por el modelo
+
+### Características de la Interfaz de Prueba
+
+- Simula conversaciones con agentes virtuales
+- Muestra el historial de mensajes en formato de chat
+- Permite probar diferentes agentes y configuraciones
+- No requiere configuración de Twilio
+- Ideal para desarrollo y pruebas de calidad
+
+### Consideraciones Técnicas
+
+- Las respuestas se generan utilizando el mismo modelo configurado en el sistema (gpt-oss-20b o fallback a OpenAI)
+- Las conversaciones de prueba no se almacenan permanentemente en la base de datos
+- Esta interfaz es solo para pruebas y no debe usarse en producción
+
 ## Solución de Problemas Comunes
 
 ### Problemas de conexión a la base de datos

@@ -24,6 +24,7 @@ import Applications from './pages/Applications';
 import ApplicationDetail from './pages/ApplicationDetail';
 import ApplicationForm from './pages/ApplicationForm';
 import Profile from './pages/Profile';
+import ModelTester from './pages/ModelTester';
 import NotFound from './pages/NotFound';
 
 // Definir tema
@@ -127,6 +128,7 @@ function App() {
               <Route path="applications/new" element={<ApplicationForm />} />
               <Route path="applications/:id/edit" element={<ApplicationForm />} />
               <Route path="credit-policies" element={<CreditPolicies />} />
+              <Route path="model-tester" element={<ModelTester />} />
               <Route path="profile" element={<Profile />} />
             </Route>
             <Route path="*" element={<NotFound />} />

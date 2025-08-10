@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 # Importaciones internas
 from database import get_db, engine
 import models
-from routes import agents, campaigns, users, dashboard, credit_policies, applications
+from routes import agents, campaigns, users, dashboard, credit_policies, applications, chat
 
 # Cargar variables de entorno
 load_dotenv()
@@ -40,6 +40,7 @@ app.include_router(agents.router, prefix="/api/agents", tags=["agents"])
 app.include_router(campaigns.router, prefix="/api/campaigns", tags=["campaigns"])
 app.include_router(dashboard.router, prefix="/api/dashboard", tags=["dashboard"])
 app.include_router(credit_policies.router, prefix="/api/policies", tags=["policies"])
+app.include_router(chat.router, prefix="/api/chat", tags=["chat"])
 app.include_router(applications.router)
 
 @app.get("/")

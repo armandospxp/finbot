@@ -32,6 +32,7 @@ import {
   Logout as LogoutIcon,
   ChevronLeft as ChevronLeftIcon,
   AttachMoney as MoneyIcon,
+  Chat as ChatIcon,
 } from '@mui/icons-material';
 
 import { useAuth } from '../../contexts/AuthContext';
@@ -126,6 +127,7 @@ const Layout = () => {
     { text: 'Clientes', icon: <PersonIcon />, path: '/clients' },
     { text: 'Solicitudes de Crédito', icon: <MoneyIcon />, path: '/applications' },
     { text: 'Políticas de Crédito', icon: <DescriptionIcon />, path: '/credit-policies', adminOnly: true },
+    { text: 'Probador de Modelo', icon: <ChatIcon />, path: '/model-tester' },
   ];
 
   return (
