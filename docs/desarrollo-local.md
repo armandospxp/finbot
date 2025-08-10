@@ -74,7 +74,9 @@ npm start
 
 ## Configuración de la Base de Datos
 
-### 1. Crear la base de datos en PostgreSQL
+### Opción 1: PostgreSQL Local
+
+1. Crear la base de datos en PostgreSQL local
 
 ```bash
 psql -U postgres
@@ -82,12 +84,41 @@ CREATE DATABASE credit_agents_db;
 \q
 ```
 
-### 2. Ejecutar migraciones (si se usa Alembic)
+2. Ejecutar migraciones con Alembic
 
 ```bash
 cd backend
 alembic upgrade head
 ```
+
+### Opción 2: PostgreSQL Dockerizado (Recomendado)
+
+1. Iniciar solo el servicio de PostgreSQL con Docker
+
+```bash
+# En Windows
+docker-compose up -d postgres
+
+# En Linux/macOS
+docker-compose up -d postgres
+```
+
+2. Configurar el backend para conectarse a PostgreSQL dockerizado
+
+Edita el archivo `.env` en la carpeta `backend` para que contenga:
+
+```
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/credit_app
+```
+
+3. Ejecutar migraciones con Alembic
+
+```bash
+cd backend
+alembic upgrade head
+```
+
+Esta opción te permite tener una base de datos PostgreSQL aislada y configurada específicamente para el proyecto, sin necesidad de instalar PostgreSQL localmente.
 
 ## Configuración de los Agentes IA
 

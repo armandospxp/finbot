@@ -54,7 +54,20 @@ Este proyecto implementa un sistema de agentes virtuales para la venta de crédi
    # Editar el archivo .env con tus configuraciones
    ```
 
-3. Iniciar los servicios con Docker:
+3. Iniciar los servicios con Docker usando los scripts proporcionados:
+
+   En Windows:
+   ```bash
+   .\start-docker.ps1
+   ```
+   
+   En Linux/macOS:
+   ```bash
+   chmod +x ./start-docker.sh
+   ./start-docker.sh
+   ```
+   
+   O manualmente:
    ```bash
    docker-compose up -d
    ```
@@ -64,10 +77,28 @@ Este proyecto implementa un sistema de agentes virtuales para la venta de crédi
    podman-compose up -d
    ```
 
-4. Acceder a la aplicación:
-   - Frontend: http://localhost
+4. Inicializar la base de datos con datos de ejemplo (opcional):
+
+   En Windows:
+   ```bash
+   .\init-db-sample.ps1
+   ```
+   
+   En Linux/macOS:
+   ```bash
+   chmod +x ./init-db-sample.sh
+   ./init-db-sample.sh
+   ```
+
+5. Acceder a la aplicación:
+   - Frontend: http://localhost:3000
    - API Backend: http://localhost:8000
    - Documentación API: http://localhost:8000/docs
+   - PostgreSQL: localhost:5432 (accesible mediante herramientas como pgAdmin)
+   
+   Credenciales por defecto (si usaste los datos de ejemplo):
+   - Email: admin@example.com
+   - Contraseña: admin123
 
 ### Comandos Útiles
 
@@ -95,6 +126,19 @@ Este proyecto implementa un sistema de agentes virtuales para la venta de crédi
 - Iniciar solo el servicio de backend y gpt-oss-20b (útil para desarrollo):
   ```bash
   docker-compose up -d postgres gpt-oss-20b backend
+  ```
+
+- Verificar la conexión a PostgreSQL dockerizado:
+
+  En Windows:
+  ```bash
+  .\check-postgres.ps1
+  ```
+  
+  En Linux/macOS:
+  ```bash
+  chmod +x ./check-postgres.sh
+  ./check-postgres.sh
   ```
 
 ## Desarrollo Local
